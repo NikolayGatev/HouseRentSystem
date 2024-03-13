@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static HouseRentSystem.Common.DataLocalConstants.Agent;
 
 namespace HouseRentSystem.Data.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
+
     public class Agent
     {
         public Agent()
@@ -19,7 +22,7 @@ namespace HouseRentSystem.Data.Models
         [Required]
         [MaxLength(PhoneNumberMaxLegnth)]
 
-        public string PhoneNumber { get; set; } = null!;
+        public string PhoneNumber { get; set; } = string.Empty;
 
         [Required]
 

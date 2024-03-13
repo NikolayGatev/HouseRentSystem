@@ -1,10 +1,7 @@
 ﻿using HouseRentSystem.Core.Contracts;
 using HouseRentSystem.Data.Common;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HouseRentSystem.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace HouseRentSystem.Core.Services
 {
@@ -15,6 +12,27 @@ namespace HouseRentSystem.Core.Services
         public AgentService(Repository repozitory)
         {
             this.repozitory = repozitory;
+        }
+
+        public Task CreateAsync(string userId, string phoneNumber)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<bool> ExistsByIdAsync(string agentId)
+        {
+            return await repozitory.AllReadOnly<Agent>()
+                .AnyAsync(a => a.UserId == agentId);
+        }
+
+        public Task<bool> UserHasRentsAsync(string userId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<bool> UserWithPhoneNumberExixtsAsync(string phoneNumber)
+        {
+            throw new NotImplementedException();
         }
     }
 }

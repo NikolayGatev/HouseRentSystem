@@ -2,6 +2,7 @@
 using HouseRentSystem.Core.Models.Agent;
 using HouseRentSystem.Data.Common;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace HouseRentSystem.Web.Controllers
 {
@@ -19,6 +20,11 @@ namespace HouseRentSystem.Web.Controllers
 
         public async Task<IActionResult> Become()
         {
+            if(await agentService.ExistsByIdAsync(User.Id()))
+            {
+                return BadRequest();
+            }
+
             var model = new BecomeAgentFormModel();
 
             return View(model);

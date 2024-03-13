@@ -1,0 +1,32 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>aspnet-HouseRentSystem.Web-95cb897c-884b-4401-bae8-b1e4efe7a863</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Views\House\Minecshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\House\Minecshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.25" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.25" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.25" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HouseRentSystem.Common\HouseRentSystem.Common.csproj" />
+    <ProjectReference Include="..\HouseRentSystem.Core\HouseRentSystem.Core.csproj" />
+    <ProjectReference Include="..\HouseRentSystem.Data\HouseRentSystem.Data.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -2,6 +2,7 @@
 using HouseRentSystem.Core.Models.Home;
 using HouseRentSystem.Core.Services;
 using HouseRentSystem.Web.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -21,11 +22,15 @@ namespace HouseRentSystem.Web.Controllers
             this.houseService = houseService;
         }
 
+        [AllowAnonymous]
+
         public async Task<IActionResult> Index()
         {
             var model = await houseService.LastThreeHouses();
             return View(model);
         }
+
+        [AllowAnonymous]
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

@@ -1,11 +1,23 @@
-﻿using HouseRentSystem.Core.Models.House;
+﻿using HouseRentSystem.Core.Contracts;
+using HouseRentSystem.Core.Models.House;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HouseRentSystem.Web.Controllers
 {
-    public class HouseControler : BaseController
+    public class HouseController : BaseController
     {
+        private readonly IHouseService houseService;
+        private readonly IAgentService agentService;
+
+        public HouseController(
+            IHouseService houseService
+            ,IAgentService agentService)
+        {
+            this.houseService = houseService;
+            this.agentService = agentService;
+        }
+
         [AllowAnonymous]
         [HttpGet]
 

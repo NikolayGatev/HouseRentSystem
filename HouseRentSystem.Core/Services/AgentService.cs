@@ -7,9 +7,9 @@ namespace HouseRentSystem.Core.Services
 {
     public class AgentService : IAgentService
     {
-        private readonly Repository repozitory;
+        private readonly IRepozitory repozitory;
 
-        public AgentService(Repository repozitory)
+        public AgentService(IRepozitory repozitory)
         {
             this.repozitory = repozitory;
         }
@@ -25,10 +25,10 @@ namespace HouseRentSystem.Core.Services
             await repozitory.SaveChangesAsync();
         }
 
-        public async Task<bool> ExistsByIdAsync(string agentId)
+        public async Task<bool> ExistsByIdAsync(string userId)
         {
             return await repozitory.AllReadOnly<Agent>()
-                .AnyAsync(a => a.UserId == agentId);
+                .AnyAsync(a => a.UserId == userId);
         }
 
         public async Task<bool> UserHasRentsAsync(string userId)

@@ -4,7 +4,7 @@ namespace HouseRentSystem.Web
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -38,7 +38,7 @@ namespace HouseRentSystem.Web
             app.MapDefaultControllerRoute();
             app.MapRazorPages();
 
-            app.Run();
+            await app.RunAsync();
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using HouseRentSystem.Core.Contracts;
 using HouseRentSystem.Core.Models.Agent;
-using HouseRentSystem.Data.Common;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 

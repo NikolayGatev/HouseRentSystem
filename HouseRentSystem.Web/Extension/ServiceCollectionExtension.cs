@@ -4,7 +4,6 @@ using HouseRentSystem.Data;
 using HouseRentSystem.Data.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace HouseRentSystem.Web.Extension
 {

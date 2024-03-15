@@ -22,5 +22,14 @@ namespace HouseRentSystem.Core.Contracts
             , int housesPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task<IEnumerable<HouseServiceModel>> AllHousesByAgentIdAsync(int agentId);
+
+        Task<IEnumerable<HouseServiceModel>> AllHousesByUserId(string userId);
+
+        Task<bool> ExistAsync(int Id);
+
+        Task<HouseDetailsServiceModel> HouseDetailsByIdAsync(int id);
+
     }
 }

@@ -91,7 +91,7 @@ namespace HouseRentSystem.Web.Controllers
         {
             if(await houseService.CategoryExistsAsync(model.CategoryId) == false)
             {
-                ModelState.AddModelError(nameof(model.CategoryId), "");
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
             }
 
             if(ModelState.IsValid == false)
@@ -112,7 +112,17 @@ namespace HouseRentSystem.Web.Controllers
 
         public async Task<IActionResult> Edit(int id)
         {
-            var model = new HouseFormModel();
+            if(await houseService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if(await houseService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            var model = await houseService.GetHouseFormByIdAsync(id);
 
             return View(model);
         }
@@ -121,7 +131,31 @@ namespace HouseRentSystem.Web.Controllers
 
         public async Task<IActionResult> Edit(int id, HouseFormModel model)
         {
-            return RedirectToAction(nameof(Details), new { id = 1 });
+            if (await houseService.ExistAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+            if (await houseService.HasAgentWithIdAsync(id, User.Id()) == false)
+            {
+                return Unauthorized();
+            }
+
+            if(await houseService.CategoryExistsAsync(model.CategoryId) == false)
+            {
+                ModelState.AddModelError(nameof(model.CategoryId), "Category does not exist");
+            }
+
+            if(ModelState.IsValid == false)
+            {
+                model.Categories = await houseService.AllCategoriesAsync();
+
+                return View(model);
+            }
+
+            await houseService.EditAsync(id, model);
+
+            return RedirectToAction(nameof(Details), new { id = id });
         }
 
         [HttpGet]

@@ -40,5 +40,11 @@ namespace HouseRentSystem.Data.Common
         {
             return await this.context.SaveChangesAsync();
         }
+
+        public async Task<T?> GetByIdAsync<T>(object id)
+            where T : class
+        {
+            return await this.DbSet<T>().FindAsync(id);
+        }
     }
 }

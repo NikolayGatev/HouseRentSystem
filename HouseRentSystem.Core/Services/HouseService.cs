@@ -177,5 +177,51 @@ namespace HouseRentSystem.Core.Services
                 })
                 .FirstAsync();
         }
+
+        public async Task EditAsync(int houseId, HouseFormModel model)
+        {
+            var house = await repozitory.GetByIdAsync<House>(houseId);
+
+            if (house != null)
+            {
+                house.Address = model.Address;
+                house.CategoryId = model.CategoryId;
+                house.Description = model.Description;
+                house.ImageUrl = model.ImageUrl;
+                house.PricePerMonth = model.PricePerMonth;
+                house.Title = model.Title;
+
+                await repozitory.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> HasAgentWithIdAsync(int houseId, string userId)
+        {
+            return await repozitory.AllReadOnly<House>()
+                .AnyAsync(h => h.Id == houseId
+                            && h.Agent.UserId == userId);
+        }
+
+        public async Task<HouseFormModel?> GetHouseFormByIdAsync(int id)
+        {
+            var house = await repozitory.AllReadOnly<House>()
+                .Where(h => h.Id == id)
+                .Select(h => new HouseFormModel()
+                {
+                    Address = h.Address,
+                    CategoryId = h.CategoryId,
+                    Description = h.Description,
+                    ImageUrl = h.ImageUrl,
+                    PricePerMonth = h.PricePerMonth,
+                    Title = h.Title,
+                })
+                .FirstOrDefaultAsync();
+            if(house != null)
+            {
+                house.Categories = await AllCategoriesAsync();
+            }
+
+            return house;
+        }
     }
 }

@@ -223,5 +223,72 @@ namespace HouseRentSystem.Core.Services
 
             return house;
         }
+
+        public async Task<HouseDetailsViewModel?> GetHouseDetailsFormByIdAsync(int id)
+        {
+            var house = await repozitory.All<House>()
+                .Where(h => h.Id == id)
+                .Select(h => new HouseDetailsViewModel()
+                {
+                    Id = h.Id,
+                    Title = h.Title,
+                    Address = h.Address,
+                    ImageUrl = h.ImageUrl,
+                })
+                .FirstOrDefaultAsync();
+
+            return house;
+        }
+
+        public async Task DeleteAsync(int id)
+        {
+            var house = await repozitory.GetByIdAsync<House> (id);
+
+            if(house != null)
+            {
+                repozitory.Delete<House>(house);
+                await repozitory.SaveChangesAsync();
+            }
+        }
+
+        public async Task<bool> IsRentedAsync(int id)
+        {
+            var house = await repozitory.GetByIdAsync<House>(id);
+
+            var result = house?.RenterId != null ? true : false;
+
+            return result;
+        }
+
+        public async Task<bool> IsRentedByUserWhitIdAsync(int houseId, string userId)
+        {
+            var house = await repozitory.GetByIdAsync<House>(houseId);
+
+            var result = house == null || house.RenterId != userId ? false : true;
+
+            return result;
+        }
+
+        public async Task Rent(int houseId, string userId)
+        {
+            var house = await repozitory.GetByIdAsync<House>(houseId);
+
+            if(house != null)
+            {
+                house.RenterId = userId;
+                await repozitory.SaveChangesAsync();
+            }
+        }
+
+        public async Task Leave(int houseId)
+        {
+            House? house = await repozitory.GetByIdAsync<House>(houseId);
+
+            if (house != null)
+            {
+                house.RenterId = null;
+                await repozitory.SaveChangesAsync();  
+            }
+        }
     }
 }

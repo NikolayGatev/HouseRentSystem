@@ -13,6 +13,7 @@ namespace HouseRentSystem.Web.Extension
         {
             services.AddScoped<IHouseService, HouseService>();
             services.AddScoped<IAgentService, AgentService>();
+            services.AddScoped<IStatisicService, StatisticService>();
 
             return services;
         }

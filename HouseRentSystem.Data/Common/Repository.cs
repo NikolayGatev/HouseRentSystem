@@ -47,10 +47,14 @@ namespace HouseRentSystem.Data.Common
             return await this.DbSet<T>().FindAsync(id);
         }
 
-        public void Delete<T>(T entity)
-            where T : class
+        public async Task DeleteAsync<T>(object id) where T : class
         {
-            this.DbSet<T>().Remove(entity);
+            T? entity = await this.GetByIdAsync<T>(id);
+
+            if (entity != null)
+            {
+                this.DbSet<T>().Remove(entity);
+            }
         }
     }
 }

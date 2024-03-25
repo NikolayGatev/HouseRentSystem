@@ -127,6 +127,7 @@ namespace HouseRentSystem.Core.Services
                 .Select(h => new HouseIndexServiceModel()
                 {
                     Id = h.Id,
+                    Address = h.Address,
                     ImageUrl = h.ImageUrl,
                     Title = h.Title,
                 })
@@ -242,13 +243,8 @@ namespace HouseRentSystem.Core.Services
 
         public async Task DeleteAsync(int id)
         {
-            var house = await repozitory.GetByIdAsync<House> (id);
-
-            if(house != null)
-            {
-                repozitory.Delete<House>(house);
-                await repozitory.SaveChangesAsync();
-            }
+            await repozitory.DeleteAsync<House>(id);
+            await repozitory.SaveChangesAsync();
         }
 
         public async Task<bool> IsRentedAsync(int id)
@@ -280,12 +276,17 @@ namespace HouseRentSystem.Core.Services
             }
         }
 
-        public async Task Leave(int houseId)
+        public async Task LeaveAsync(int houseId, string userId)
         {
             House? house = await repozitory.GetByIdAsync<House>(houseId);
 
             if (house != null)
             {
+                if(house.RenterId != userId)
+                {
+                    throw new UnauthorizedAccessException("The user is not the renter!");
+                }
+
                 house.RenterId = null;
                 await repozitory.SaveChangesAsync();  
             }

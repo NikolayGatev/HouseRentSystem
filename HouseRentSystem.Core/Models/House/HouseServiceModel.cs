@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using static HouseRentSystem.Common.MassageConstants;
 using static HouseRentSystem.Common.DataLocalConstants.House;
+using HouseRentSystem.Core.Contracts;
 
 namespace HouseRentSystem.Core.Models.House
 {
-    public class HouseServiceModel
+    public class HouseServiceModel :IHouseModel
     {
         public int Id { get; set; }
 

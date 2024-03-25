@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using HouseRentSystem.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static HouseRentSystem.Common.DataLocalConstants.House;
 using static HouseRentSystem.Common.MassageConstants;
 
 namespace HouseRentSystem.Core.Models.House
 {
-    public class HouseFormModel
+    public class HouseFormModel : IHouseModel
     {
         public HouseFormModel()
         {

@@ -14,7 +14,7 @@
         Task<T?> GetByIdAsync<T>(object id)
             where T : class;
 
-        public void Delete<T>(T entity)
+       Task DeleteAsync<T>(object id)
             where T : class;
     }
 }

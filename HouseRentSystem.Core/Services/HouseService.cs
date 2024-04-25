@@ -55,9 +55,9 @@ namespace HouseRentSystem.Core.Services
             {
                 string normalizedSearcTerm = searchTerm.ToLower();
                 housesToShow = housesToShow
-                    .Where(h => (h.Title.ToLower().Contains(normalizedSearcTerm)
+                    .Where(h => h.Title.ToLower().Contains(normalizedSearcTerm)
                         || h.Address.ToLower().Contains(normalizedSearcTerm) 
-                        || h.Description.ToLower().Contains(normalizedSearcTerm)));
+                        || h.Description.ToLower().Contains(normalizedSearcTerm));
             }
 
             housesToShow = sorting switch
@@ -107,7 +107,9 @@ namespace HouseRentSystem.Core.Services
             {
                 Address = model.Address,
                 AgentId = agentId,
+                Description = model.Description,
                 CategoryId = model.CategoryId,
+                ImageUrl = model.ImageUrl,
                 PricePerMonth = model.PricePerMonth,
                 Title = model.Title,
             };
